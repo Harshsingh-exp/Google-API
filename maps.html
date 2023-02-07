@@ -27,6 +27,7 @@
   </head>
   <body>
     <div id="container">
+      <h2 id="event"></h2>
       <div id="map"></div>
     </div>
     <script>
@@ -34,13 +35,36 @@
         let mapOptions = {
           center: new google.maps.LatLng("43.255203", "-79.843826"),
           zoom: 12,
+          mapTypeComtrolOptions: {
+            mapTypesIds: ["roadmap", "hybrid"],
+          },
         };
         let map = new google.maps.Map(
           document.getElementById("map"),
           mapOptions
         );
+
+        let markerOptions = {
+          position: new google.maps.LatLng(43.2362657216, -79.8847431277),
+          optimized: false,
+          animation: google.maps.Animation.DROP,
+        };
+
+        let marker = new google.maps.Marker(markerOptions);
+
+        marker.setMap(map);
+        //marker.setIcon("./icon.png");
+        marker.setLabel("Mohawk College");
+        marker.setTitle("Mobile Programming");
+        marker.addListner("click", (googleMapsEvent) => {
+          document.getElementById("event").innerHTML =
+            "latitude:" +
+            googleMapsEvent.LatLng.lat() +
+            "longitute:" +
+            googleMapsEvent.LatLng.lng();
+        });
       }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=yourAPIKey&callback=initMap"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3vSJShAuX1gSqXiRX8sYR3aw29sF-E14&callback=initMap"></script>
   </body>
 </html>
