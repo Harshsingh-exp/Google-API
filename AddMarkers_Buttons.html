@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google Map Marker Demo</title>
+    <style>
+      /* The height and width of the div will become the dimensions of the map! */
+      #container {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #map {
+        height: 80vh;
+        width: 80vw;
+        background-color: beige;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="container">
+      <h2 id="event"></h2>
+      <div id="map"></div>
+    </div>
+    <br />
+    <button id="remove_Mohawk">Remove Mohawk Marker</button>
+    <button id="add_airport">Add Airport Marker</button>
+
+    <script>
+      // See the official Google Map marker documentation here:
+      //   https://developers.google.com/maps/documentation/javascript/markers#introduction
+
+      var map, mohawk_marker;
+
+      function initMap() {
+        // the latitude and longitude of mohawk college campus
+        var mohawkloc = { lat: 43.2387, lng: -79.8881 };
+
+        // Create a Google Map centered on Mohawk College campus
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: mohawkloc,
+          zoom: 10,
+        });
+
+        // create a marker centered on Mohawk College  campus
+        mohawk_marker = new google.maps.Marker({
+          position: mohawkloc,
+          title: "Mohawk College", // will appear when we hover over the marker
+        });
+
+        // put the marker onto the map (it will not appear otherwise)
+        mohawk_marker.setMap(map);
+      }
+
+      // removes the campus marker from the map
+      function removeMohawkMarker() {
+        mohawk_marker.setMap(null);
+      }
+
+      // sets up a click handler event on the remove  button
+      document.getElementById("remove_Mohawk").onclick = removeMohawkMarker;
+
+      // adds the aviation campus marker to the map
+      function addAirport() {
+        var airport = { lat: 43.1632, lng: -79.9266 };
+
+        // create a marker centered on the airport
+        airport_marker = new google.maps.Marker({
+          position: airport,
+          title: "Hamilton Airport", // will appear when we hover over the marker
+        });
+
+        // put the marker onto the map (it will not appear otherwise)
+        airport_marker.setMap(map);
+      }
+
+      // sets up a click handler event on the add airport button
+      document.getElementById("add_airport").onclick = addAirport;
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3vSJShAuX1gSqXiRX8sYR3aw29sF-E14&callback=initMap"></script>
+  </body>
+</html>
